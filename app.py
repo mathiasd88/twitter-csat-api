@@ -7,16 +7,13 @@ app = Flask(__name__)
 @app.route('/', methods=('get',))
 def analysis():
     country = request.args.get('country')
+    text = request.args.get('text')
 
     if country is None:
         country = 'chile'
 
-    analyzed_data = {
-        'polarity': analyze(country)
-    }
-
     return Response(
-        response=json.dumps(analyzed_data),
+        response=json.dumps(analyze(country, text)),
         status=200,
         mimetype='application/json'
     )
